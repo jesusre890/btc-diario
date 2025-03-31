@@ -1,0 +1,24 @@
+name: BTC Diario
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Cada 6 horas
+  workflow_dispatch: # Por si quiero ponerlo manual
+
+jobs:
+  check-btc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm install
+
+      - name: Run script
+        run: npx ts-node index.ts
