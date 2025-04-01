@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^8.1.4",
-    "axios": "^1.8.4"
+    "axios": "^1.8.4",
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@types/node": "^22.13.14",

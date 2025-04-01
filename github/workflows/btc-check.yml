@@ -1,24 +1,29 @@
-name: BTC Diario
+name: BTC Diario Email Sender
 
 on:
   schedule:
     - cron: '0 */6 * * *' # Cada 6 horas
-  workflow_dispatch: # Por si quiero ponerlo manual
+  workflow_dispatch: # Permite ejecutarlo manualmente desde GitHub
 
 jobs:
-  check-btc:
+  send-btc-email:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Clonar el repo
         uses: actions/checkout@v3
 
-      - name: Set up Node
+      - name: Configurar Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install deps
+      - name: Instalar dependencias
         run: npm install
 
-      - name: Run script
+      - name: Ejecutar el script
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: npx ts-node index.ts

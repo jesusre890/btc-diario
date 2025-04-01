@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import axios from "axios";
 import sgMail from "@sendgrid/mail";
 
@@ -25,7 +28,7 @@ async function getBTCPrice() {
       btc.usd_24h_change >= 0 ? "subió" : "bajó"
     } a ${price}\n- ${Math.abs(
       Number(change)
-    )}% ${arrow}\nFuente: http://coingecko.com`;
+    )}% ${arrow}\nFuente: coingecko.com`;
 
     const email = {
       to: process.env.EMAIL_TO!,
