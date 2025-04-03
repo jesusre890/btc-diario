@@ -32,7 +32,7 @@ async function getBTCPrice() {
     const symbol = isUp ? "🚀" : "📉";
     const sign24 = isUp ? "+" : "-";
 
-    const msg = `Bitcoin en ${price}\n${sign24}${Math.abs(
+    const msg = `Bitcoin ahora en ${price}\n${sign24}${Math.abs(
       Number(change24h)
     )}% hoy ${symbol} | ${change7d}% en los últimos 7 días\nFuente: coingecko.com`;
 
