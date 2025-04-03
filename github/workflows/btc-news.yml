@@ -2,7 +2,7 @@ name: BTC Noticia del Día
 
 on:
   schedule:
-    - cron: '30 12 * * *' # Todos los días a las 09:30 AM Argentina (12:30 UTC)
+    - cron: '30 20 * * *' # Todos los días a las 09:30 AM Argentina (12:30 UTC)
   workflow_dispatch:
 
 jobs:
