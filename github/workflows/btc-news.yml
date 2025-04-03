@@ -1,0 +1,30 @@
+name: BTC Noticia del Día
+
+on:
+  schedule:
+    - cron: '30 12 * * *' # Todos los días a las 09:30 AM Argentina (12:30 UTC)
+  workflow_dispatch:
+
+jobs:
+  send-btc-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v3
+
+      - name: Configurar Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar script
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          CRYPTOPANIC_API_KEY: ${{ secrets.CRYPTOPANIC_API_KEY }}
+        run: npx ts-node btc-news.ts
