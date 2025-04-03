@@ -101,7 +101,7 @@ Recibirás dos mails diarios:
 
 ## 🙌 Autor
 
-Hecho por [@jeredev](https://github.com/jesusre890) — desarrollador frontend & automatizador de cosas lindas 🧠⚙️
+Hecho por [jesusre890](https://github.com/jesusre890) — desarrollador frontend & automatizador 
 
 ---
 
