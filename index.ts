@@ -22,13 +22,15 @@ async function getBTCPrice() {
       style: "currency",
       currency: "USD",
     });
+
     const change = btc.usd_24h_change.toFixed(1);
-    const arrow = btc.usd_24h_change >= 0 ? "↗️" : "↘️";
-    const msg = `El Bitcoin ${
-      btc.usd_24h_change >= 0 ? "subió" : "bajó"
-    } a ${price}\n- ${Math.abs(
+    const isUp = btc.usd_24h_change >= 0;
+    const symbol = isUp ? "🚀" : "📉";
+    const sign = isUp ? "+" : "-";
+
+    const msg = `Bitcoin en ${price}\n${sign}${Math.abs(
       Number(change)
-    )}% ${arrow}\nFuente: coingecko.com`;
+    )}% ${symbol}\nFuente: coingecko.com`;
 
     const email = {
       to: process.env.EMAIL_TO!,
