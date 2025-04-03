@@ -8,29 +8,33 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 async function getBTCPrice() {
   try {
-    const url = "https://api.coingecko.com/api/v3/simple/price";
+    const url = "https://api.coingecko.com/api/v3/coins/bitcoin";
     const response = await axios.get(url, {
       params: {
-        ids: "bitcoin",
-        vs_currencies: "usd",
-        include_24hr_change: "true",
+        localization: false,
+        tickers: false,
+        market_data: true,
+        community_data: false,
+        developer_data: false,
+        sparkline: false,
       },
     });
 
-    const btc = response.data.bitcoin;
-    const price = btc.usd.toLocaleString("es-AR", {
+    const data = response.data;
+    const price = data.market_data.current_price.usd.toLocaleString("es-AR", {
       style: "currency",
       currency: "USD",
     });
 
-    const change = btc.usd_24h_change.toFixed(1);
-    const isUp = btc.usd_24h_change >= 0;
+    const change24h = data.market_data.price_change_percentage_24h.toFixed(1);
+    const change7d = data.market_data.price_change_percentage_7d.toFixed(1);
+    const isUp = parseFloat(change24h) >= 0;
     const symbol = isUp ? "🚀" : "📉";
-    const sign = isUp ? "+" : "-";
+    const sign24 = isUp ? "+" : "-";
 
-    const msg = `Bitcoin en ${price}\n${sign}${Math.abs(
-      Number(change)
-    )}% ${symbol}\nFuente: coingecko.com`;
+    const msg = `Bitcoin en ${price}\n${sign24}${Math.abs(
+      Number(change24h)
+    )}% hoy ${symbol} | ${change7d}% en los últimos 7 días\nFuente: coingecko.com`;
 
     const email = {
       to: process.env.EMAIL_TO!,
